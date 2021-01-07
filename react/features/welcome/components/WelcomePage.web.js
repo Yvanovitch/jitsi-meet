@@ -5,7 +5,6 @@ import React from 'react';
 import { isMobileBrowser } from '../../base/environment/utils';
 import { translate, translateToHTML } from '../../base/i18n';
 import { Icon, IconWarning } from '../../base/icons';
-import { Watermarks } from '../../base/react';
 import { connect } from '../../base/redux';
 import { CalendarList } from '../../calendar-sync';
 import { RecentList } from '../../recent-list';
@@ -182,9 +181,6 @@ class WelcomePage extends AbstractWelcomePage {
                 className = { `welcome ${showAdditionalContent
                     ? 'with-content' : 'without-content'}` }
                 id = 'welcome_page'>
-                <div className = 'welcome-watermark'>
-                    <Watermarks defaultJitsiLogoURL = { DEFAULT_WELCOME_PAGE_LOGO_URL } />
-                </div>
 
                 <div className = 'header'>
                     <div className = 'welcome-page-settings'>
@@ -203,6 +199,7 @@ class WelcomePage extends AbstractWelcomePage {
                             { t('welcomepage.headerTitle') }
                         </h1>
                         <span className = 'header-text-subtitle'>
+                          Hello
                             { t('welcomepage.headerSubtitle')}
                         </span>
                         <div id = 'enter_room'>

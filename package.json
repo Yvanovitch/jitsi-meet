@@ -14,6 +14,13 @@
   ],
   "author": "",
   "readmeFilename": "README.md",
+  "scripts": {
+    "lint": "eslint . && flow",
+    "postinstall": "jetify",
+    "validate": "npm ls",
+    "build": "webpack --mode=production --optimize-minimize",
+    "watch": "webpack --mode=production --optimize-minimize --watch"
+  },
   "dependencies": {
     "@atlaskit/button": "10.1.1",
     "@atlaskit/checkbox": "5.0.10",
@@ -146,11 +153,6 @@
     "npm": ">=6.0.0"
   },
   "license": "Apache-2.0",
-  "scripts": {
-    "lint": "eslint . && flow",
-    "postinstall": "jetify",
-    "validate": "npm ls"
-  },
   "browser": {
     "jQuery-Impromptu": "jQuery-Impromptu/src/jquery-impromptu.js"
   }
