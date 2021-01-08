@@ -37,6 +37,18 @@ export function getMaxColumnCount() {
 }
 
 /**
+ * Returns how many columns should be displayed in tile view. The number
+ * returned will be between 1 and 5, inclusive.
+ *
+ * @returns {number}
+ */
+export function getMaxRowCount() {
+    const configuredMax = interfaceConfig.TILE_VIEW_MAX_ROWS || 5;
+
+    return Math.min(Math.max(configuredMax, 1), 5);
+}
+
+/**
  * Returns the cell count dimensions for tile view. Tile view tries to uphold
  * equal count of tiles for height and width, until maxColumn is reached in
  * which rows will be added but no more columns.
@@ -53,10 +65,28 @@ export function getTileViewGridDimensions(state: Object, maxColumns: number = ge
     const { iAmRecorder } = state['features/base/config'];
     const numberOfParticipants = state['features/base/participants'].length - (iAmRecorder ? 1 : 0);
 
-    const columnsToMaintainASquare = Math.ceil(Math.sqrt(numberOfParticipants));
-    const columns = Math.min(columnsToMaintainASquare, maxColumns);
-    const rows = Math.ceil(numberOfParticipants / columns);
-    const visibleRows = Math.min(maxColumns, rows);
+    const isRowPrefered = interfaceConfig.PREFER_ROWS ? true : false;
+    console.log('Prefered ',interfaceConfig.PREFER_ROWS)
+
+    var columns = 1;
+    var rows = 1;
+    var visibleRows = rows;
+
+    const maxRows = getMaxRowCount()
+    console.log('Prefered ',interfaceConfig.PREFER_ROWS, maxRows)
+
+    if(isRowPrefered) {
+        rows = Math.min(numberOfParticipants, maxRows)
+        columns = Math.ceil(numberOfParticipants / rows);
+        visibleRows = Math.min(maxColumns, rows);
+    }
+    else {
+        const columnsToMaintainASquare = Math.ceil(Math.sqrt(numberOfParticipants));
+        columns = Math.min(columnsToMaintainASquare, maxColumns);
+        rows = Math.ceil(numberOfParticipants / columns);
+        visibleRows = Math.min(maxColumns, rows);
+    }
+
 
     return {
         columns,
